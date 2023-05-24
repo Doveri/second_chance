@@ -32,6 +32,15 @@ QString parsing(QString request)
         } else {
             response = "You are not authorized!";
         }
+    } else if (command == "get_stat") {
+        QString login = parts[1];
+        QString password = parts[2];
+        if (authUser(login, password)) {
+            QStringList users = getUsers();
+            response = "stat: " + users.join(", ");
+        } else {
+            response = "You are not authorized!";
+        }
     } else if (command == "clean_db") {
         if (cleanDatabase()) {
             response = "Database cleaned successfully!";
@@ -87,6 +96,21 @@ QStringList getUsers()
     return users;
 }
 
+QStringList getStat()
+{
+    Singleton& db = Singleton::getInstance();
+    QSqlQuery query;
+    QStringList stat;
+    if (!query.exec("SELECT * FROM demo")) {
+        qDebug() << "Error selecting stat!";
+        qDebug() << query.lastError().text();
+    }
+    while (query.next()) {
+        stat.append(query.value(0).toString());
+    }
+    return stat;
+}
+
 bool cleanDatabase()
 {
     Singleton& db = Singleton::getInstance();
@@ -97,6 +121,42 @@ bool cleanDatabase()
         return false;
     }
     return true;
+}
+
+
+QVector<QPair<int, int>> getRandomEdges(int n)
+{
+    QVector<QPair<int, int>> edges;
+    QSet<QPair<int, int>> edgeSet;
+
+    while (edges.size() < n)
+    {
+        int u = rand() % 10;
+        int v = rand() % 10;
+        QPair<int, int> edge(u, v);
+
+        if (!edgeSet.contains(edge))
+        {
+            edges.append(edge);
+            edgeSet.insert(edge);
+        }
+    }
+
+    return edges;
+}
+
+
+QVector<int> getRandomPruferCode()
+{
+    QVector<int> pruferCode;
+
+    for (int i = 0; i < 7; i++)
+    {
+        int num = rand() % 10;
+        pruferCode.append(num);
+    }
+
+    return pruferCode;
 }
 
 

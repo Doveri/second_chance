@@ -6,17 +6,19 @@
 #include <QVector>
 #include <QPair>
 #include <QHash>
-#include <QtAlgorithms>
-#include <algorithm>
+#include <cstdlib>
+#include <QSet>
 
 QString parsing(QString request);
 bool registerUser(QString login, QString password);
 bool authUser(QString login, QString password);
 bool cleanDatabase();
+QStringList getStat();
 QStringList getUsers();
 QVector<int> pruferCode(QVector<QPair<int,int>> edges);
 QVector<QPair<int,int>> pruferDecode(QVector<int> c);
-
+QVector<QPair<int, int>> getRandomEdges(int n);
+QVector<int> getRandomPruferCode();
 
 
 #endif // FUNCTION_H
