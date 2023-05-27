@@ -8,6 +8,9 @@
 #include <QHash>
 #include <cstdlib>
 #include <QSet>
+#include <algorithm>
+
+#include "singleton.h"
 
 QString parsing(QString request);
 bool registerUser(QString login, QString password);

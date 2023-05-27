@@ -5,6 +5,9 @@
 #include <QTcpSocket>
 #include <QDebug>
 
+#include "singleton.h"
+#include "function.h"
+
 class MyTcpServer : public QTcpServer
 {
     Q_OBJECT
