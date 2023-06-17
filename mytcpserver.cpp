@@ -54,8 +54,6 @@ void MyTcpServer::slotClientDisconnected()
 // Слот, вызываемый при чтении данных от клиента
 void MyTcpServer::slotServerRead()
 {
-    // Проверяем, можно ли прочитать строку из сокета
-    if (!clientSocket->canReadLine()) return;
 
     // Читаем строку из сокета и выводим сообщение о запросе в консоль
     QString request = clientSocket->readLine().trimmed();
